@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twbs/bootstrap": "4.0.0",
+        "select2/select2": "^4.0",
+        "components/jquery": "^3.2"
+    }
+}

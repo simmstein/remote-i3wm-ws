@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="vendor/select2/select2/dist/css/select2.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+    <title>Remote i3-wm</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-pills nav-fill" id="nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#pane-keyboard">KEYBOARD</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pane-i3">I3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pane-pointer">MOUSE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pane-media">MEDIA</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="pane-keyboard" class="pane">
+        <div class="row">
+            <div class="col-12">
+                <p class="legend">Keys</p>
+            </div>
+            <div class="col-12">
+                <button type="button" data-msg='{"type":"key","value":"left"}' class="btn btn-secondary">←</button>
+                <button type="button" data-msg='{"type":"key","value":"up"}' class="btn btn-secondary">↑</button>
+                <button type="button" data-msg='{"type":"key","value":"down"}' class="btn btn-secondary">↓</button>
+                <button type="button" data-msg='{"type":"key","value":"right"}' class="btn btn-secondary">→</button>
+            </div>
+            <div class="line col-12"></div>
+            <div class="col-12">
+                <button type="button" data-msg='{"type":"key","value":"escape"}' class="btn btn-secondary">Escape</button>
+                <button type="button" data-msg='{"type":"key","value":"tab"}' class="btn btn-secondary">TAB</button>
+                <button type="button" data-msg='{"type":"key","value":"backspace"}' class="btn btn-secondary">Backspace</button>
+                <button type="button" data-msg='{"type":"key","value":"enter"}' class="btn btn-secondary">Enter</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="legend">TEXT</p>
+            </div>
+            <div class="form-group col-6">
+                <input type="text" class="form-control" id="text">
+            </div>
+            <div class="col-6">
+                <button type="button" id="text-send" class="btn btn-primary">Send</button>
+                <button type="button" id="text-clear" class="btn btn-secondary">Clear</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="legend">Live text</p>
+            </div>
+            <div class="form-group col-12">
+                <input type="text" class="form-control" id="live-text" name="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="legend">Shortcuts</p>
+            </div>
+            <div class="col-8">
+                <select class="select2" id="shortcut-keys" name="shortcuts_special_keys[]" multiple="multiple">
+                    <option value="ctrl">ctrl</option>
+                    <option value="shift">shift</option>
+                    <option value="alt">alt</option>
+                    <option value="win">win</option>
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <input type="text" id="shortcut-key" class="form-control" name="shortcuts_char">
+            </div>
+            <div class="col-12">
+                <button type="button" id="shortcut-send" class="btn btn-primary">Send</button>
+                <button type="button" id="shortcut-clear" class="btn btn-secondary">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pane-i3" class="pane">
+        <div class="row">
+            <div class="col-12">
+                <p class="legend">Workspaces</p>
+            </div>
+            <div class="col-12">
+                <button type="button" data-msg='{"type":"workspace","value":"1. IRC"}' class="btn btn-secondary btn-sm">1. IRC</button>
+                <button type="button" data-msg='{"type":"workspace","value":"2. WWW"}' class="btn btn-secondary btn-sm">2. WWW</button>
+                <button type="button" data-msg='{"type":"workspace","value":"3. MAIL"}' class="btn btn-secondary btn-sm">3. MAIL</button>
+                <button type="button" data-msg='{"type":"workspace","value":"6. MEDIA"}' class="btn btn-secondary btn-sm">6. MEDIA</button>
+                <button type="button" data-msg='{"type":"workspace","value":"7. WORK"}' class="btn btn-secondary btn-sm">7. WORK</button>
+                <button type="button" data-msg='{"type":"workspace","value":"8. VM"}' class="btn btn-secondary btn-sm">8. VM</button>
+            </div>
+            <div class="col-12">
+                <button type="button" data-msg='{"type":"workspace","value":"4"}' class="btn btn-secondary btn-sm">4</button>
+                <button type="button" data-msg='{"type":"workspace","value":"5"}' class="btn btn-secondary btn-sm">5</button>
+                <button type="button" data-msg='{"type":"workspace","value":"9"}' class="btn btn-secondary btn-sm">9</button>
+                <button type="button" data-msg='{"type":"workspace","value":"10"}' class="btn btn-secondary btn-sm">10</button>
+                <button type="button" data-msg='{"type":"workspace","value":"11"}' class="btn btn-secondary btn-sm">11</button>
+                <button type="button" data-msg='{"type":"workspace","value":"12"}' class="btn btn-secondary btn-sm">12</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pane" id="pane-pointer">
+        <div id="pointer" class="col-12">
+        </div>
+        <div id="pointer-log"></div>
+        <div class="text-center">
+            <button type="button" data-msg='{"type":"pointer","click":"left"}' class="btn btn-secondary col-3">Left</button>
+            <button type="button" data-msg='{"type":"pointer","click":"middle"}' class="btn btn-secondary col-3">Middle</button>
+            <button type="button" data-msg='{"type":"pointer","click":"right"}' class="btn btn-secondary col-3">Right</button>
+        </div>
+    </div>
+
+    <div class="row pane" id="pane-media">
+        <div class="col-12">
+            <p class="legend">Spotify</p>
+        </div>
+        <div class="col-12">
+            <button type="button" data-msg='{"type":"media","value":"playpause"}' class="btn btn-secondary">Play/Pause</button>
+            <button type="button" data-msg='{"type":"media","value":"next"}' class="btn btn-secondary">Next</button>
+            <button type="button" data-msg='{"type":"media","value":"prev"}' class="btn btn-secondary">Previous</button>
+        </div>
+        <div class="col-12">
+            <p class="legend">Volume</p>
+        </div>
+        <div class="col-12">
+            <button type="button" data-msg='{"type":"volume","value":"0"}' class="btn btn-secondary">0%</button>
+            <button type="button" data-msg='{"type":"volume","value":"25"}' class="btn btn-secondary">25%</button>
+            <button type="button" data-msg='{"type":"volume","value":"50"}' class="btn btn-secondary">50%</button>
+            <button type="button" data-msg='{"type":"volume","value":"75"}' class="btn btn-secondary">75%</button>
+            <button type="button" data-msg='{"type":"volume","value":"100"}' class="btn btn-secondary">100%</button>
+        </div>
+        <div class="col-12">
+            <button type="button" data-msg='{"type":"volume","value":"down"}' class="btn btn-secondary">-</button>
+            <button type="button" data-msg='{"type":"volume","value":"up"}' class="btn btn-secondary">+</button>
+        </div>
+    </div>
+</div>
+
+<script src="vendor/components/jquery/jquery.min.js"></script>
+<script src="vendor/select2/select2/dist/js/select2.full.min.js"></script>
+<script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

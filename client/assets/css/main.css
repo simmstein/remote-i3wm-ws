@@ -1,0 +1,35 @@
+.legend {
+    color: #777;
+    margin: 3px 0;
+    padding: 3px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.btn-sm {
+    font-size: 9px;
+}
+
+.select2 {
+    width: 100%;
+}
+
+.line {
+    height: 3px;
+}
+
+.pane {
+    display: none;
+}
+
+#pane-keyboard {
+    display: block;
+}
+
+#pointer {
+    height: 80vh;
+    width: 95%;
+    margin: auto;
+    background: #ccc;
+}
