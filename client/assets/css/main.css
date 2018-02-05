@@ -33,3 +33,17 @@
     margin: auto;
     background: #ccc;
 }
+
+#disconneced {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: #ff6161;
+    color: #fff;
+    padding: 5px;
+}
+
+#disconneced a {
+    color: #fff;
+    font-weight: bold;
+}

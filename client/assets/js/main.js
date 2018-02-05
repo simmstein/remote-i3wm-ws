@@ -19,7 +19,13 @@ $(function() {
         $(this).addClass('active');
     });
 
-    ws.onclose = function(event) {}
+    ws.onopen = function(event) {
+        $('#disconneced').hide();
+    }
+
+    ws.onclose = function(event) {
+        $('#disconneced').show();
+    }
 
     ws.onmessage = function(event) {}
 
