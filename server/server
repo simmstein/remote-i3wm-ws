@@ -33,6 +33,16 @@ $server->addMessageHandler('pointer', function (ConnectionInterface $from, array
     }
 });
 
+$server->addMessageHandler('scroll', function (ConnectionInterface $from, array $data) {
+    $value = $data['value'] ?? null;
+
+    if ($value === 'down') {
+        return shell_exec('xdotool click 5 && xdotool click 5');
+    } elseif ($value === 'up') {
+        return shell_exec('xdotool click 4 && xdotool click 4');
+    }
+});
+
 $server->addMessageHandler('workspace', function (ConnectionInterface $from, array $data) {
     $value = $data['value'] ?? null;
 

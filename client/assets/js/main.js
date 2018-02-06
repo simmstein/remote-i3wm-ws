@@ -1,10 +1,13 @@
 $(function() {
     var ws = new WebSocket('ws://' + window.location.hostname + ':14598');
     var $pointer = $('#pointer');
+    var $scroller = $('#scrollbar');
     var mouseInitPosX = null;
     var mouseInitPosY = null;
     var mousePosX = null;
     var mousePosY = null;
+    var scrollLastTimestamp = null;
+    var scrollLastValue = null;
 
     $('.select2').select2();
 
@@ -104,28 +107,48 @@ $(function() {
         }
     });
 
-    $pointer.on('touchstart', function(e) {
-        if (e.targetTouches.length == 1) {
-            var touch = e.targetTouches[0];
-            mouseInitPosX = touch.pageX;
-            mouseInitPosY = touch.pageY;
+    $scroller.on('touchstart', function(e) {
+        var touch = e.targetTouches[0];
+        mouseInitPosY = touch.pageY;
+    });
+
+    $scroller.on('touchmove', function(e) {
+        var touch = e.changedTouches[0];
+        var value = ((touch.pageY - mouseInitPosY > 0) ? 'down' : 'up');
+        var now = new Date().getTime();
+
+        if (value === scrollLastValue && scrollLastTimestamp !== null && now - scrollLastTimestamp < 200) {
+            return;
         }
+
+        scrollLastTimestamp = now;
+        scrollLastValue = value;
+
+        var msg = '{"type":"scroll","value": "' + value + '"}';
+
+        mouseInitPosY = touch.pageY;
+        ws.send(msg);
+    });
+
+    $pointer.on('touchstart', function(e) {
+        var touch = e.targetTouches[0];
+        mouseInitPosX = touch.pageX;
+        mouseInitPosY = touch.pageY;
     });
 
     $pointer.on('touchmove', function(e) {
-        if (e.changedTouches.length == 1) {
-            var touch = e.changedTouches[0];
-            mousePosX = touch.pageX;
-            mousePosY = touch.pageY;
+        var touch = e.changedTouches[0];
+        mousePosX = touch.pageX;
+        mousePosY = touch.pageY;
 
-            var newX = mousePosX - mouseInitPosX;
-            var newY = mousePosY - mouseInitPosY;
+        var newX = mousePosX - mouseInitPosX;
+        var newY = mousePosY - mouseInitPosY;
 
-            mouseInitPosX = mousePosX;
-            mouseInitPosY = mousePosY;
+        mouseInitPosX = mousePosX;
+        mouseInitPosY = mousePosY;
 
-            var msg = '{"type":"pointer","x": "' + newX + '","y": "' + newY + '"}';
-            ws.send(msg);
-        }
+        var msg = '{"type":"pointer","x": "' + newX + '","y": "' + newY + '"}';
+
+        ws.send(msg);
     });
 });
