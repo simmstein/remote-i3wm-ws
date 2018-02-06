@@ -100,29 +100,28 @@ $server->addMessageHandler('keys', function (ConnectionInterface $from, array $d
 
 $server->addMessageHandler('key', function (ConnectionInterface $from, array $data) {
     $value = $data['value'] ?? null;
+    $map = [
+        'up' => 'Up',
+        'down' => 'Down',
+        'left' => 'Left',
+        'right' => 'Right',
+        'tab' => 'Tab',
+        'backspace' => 'BackSpace',
+        'enter' => 'Return',
+        'space' => 'space',
+        'escape' => 'Escape',
+    ];
+
+    if (!empty($value) && isset($map[$value])) {
+        return shell_exec(sprintf('xdotool key %s', $map[$value]));
+    }
+});
+
+$server->addMessageHandler('text', function (ConnectionInterface $from, array $data) {
+    $value = $data['value'] ?? null;
+    $live = $data['live'] ?? false;
 
     if (!empty($value)) {
-        switch ($value) {
-            case 'up':
-            return shell_exec('xdotool key Up');
-            case 'down':
-                return shell_exec('xdotool key Down');
-            case 'left':
-                return shell_exec('xdotool key Left');
-            case 'right':
-                return shell_exec('xdotool key Right');
-            case 'tab':
-                return shell_exec('xdotool key Tab');
-            case 'backspace':
-                return shell_exec('xdotool key BackSpace');
-            case 'enter':
-                return shell_exec('xdotool key Return');
-            case 'space':
-                return shell_exec('xdotool key space');
-            case 'escape':
-                return shell_exec('xdotool key Escape');
-        }
-
         return shell_exec(sprintf('xdotool type %s', escapeshellarg($value)));
     }
 });

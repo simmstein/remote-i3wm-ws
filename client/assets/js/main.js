@@ -66,16 +66,16 @@ $(function() {
         var keys = $('#text').val();
 
         if (keys.length) {
-            var msg = '{"type":"key","value": "' + (keys.replace('"', '\\"')) + '"}';
+            var msg = '{"type":"text","value": "' + (keys.replace('"', '\\"')) + '"}';
             ws.send(msg);
         }
     });
 
-    $('#text-send').on('keyup', function(e) {
+    $('#text').on('keyup', function(e) {
         var keys = $('#text').val();
 
         if (e.keyCode === 13) {
-            var msg = '{"type":"key","value": "' + (keys.replace('"', '\\"')) + '"}';
+            var msg = '{"type":"text","value": "' + (keys.replace('"', '\\"')) + '"}';
             ws.send(msg);
         }
     });
@@ -83,20 +83,23 @@ $(function() {
 
     $('#live-text').on('keyup', function(e) {
         var value = $(this).val();
+        var live = false;
 
         if (e.keyCode === 8) {
-            value = 'backspace';
+            var msg = '{"type":"key","value": "backspace"}';
+            ws.send(msg);
         } else if (e.keyCode === 13) {
-            value = 'enter';
-        }
-
-        if (value.length) {
+            var msg = '{"type":"key","value": "enter"}';
+            ws.send(msg);
+        } else if (value.length) {
             if (value === ' ') {
-                value = 'space';
+                var msg = '{"type":"key","value": "space"}';
+                ws.send(msg);
+            } else {
+                var msg = '{"type":"text","value": "' + (value.replace('"', '\\"')) + '"}';
+                ws.send(msg);
             }
 
-            var msg = '{"type":"key","value": "' + (value.replace('"', '\\"')) + '"}';
-            ws.send(msg);
             $(this).val('');
         }
     });
