@@ -2,14 +2,13 @@
 <?php
 
 require __DIR__.'/vendor/autoload.php';
-require __DIR__.'/Server.php';
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\ConnectionInterface;
 
-$server = new \Server();
+$server = new Server();
 
 $server->addMessageHandler('pointer', function (ConnectionInterface $from, array $data) {
     $x = $data['x'] ?? null;
@@ -26,8 +25,6 @@ $server->addMessageHandler('pointer', function (ConnectionInterface $from, array
     } elseif ($click !== null) {
         if ($click === 'left') {
             return shell_exec('xdotool click 1');
-        } elseif ($click === 'dleft') {
-            // return shell_exec("xdotool click 1; xdotool click 1");
         } elseif ($click === 'middle') {
             return shell_exec('xdotool click 2');
         } elseif ($click === 'right') {
