@@ -132,6 +132,14 @@ $server->addMessageHandler('text', function (ConnectionInterface $from, array $d
     }
 });
 
+$server->addMessageHandler('messages', function (ConnectionInterface $from, array $data) use ($server) {
+    $value = $data['value'] ?? [];
+
+    foreach ($value as $msg) {
+        $server->onMessage($from, json_encode($msg));
+    }
+});
+
 $webSocker = IoServer::factory(
     new HttpServer(new WsServer($server)),
     14598
