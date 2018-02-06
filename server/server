@@ -126,7 +126,6 @@ $server->addMessageHandler('key', function (ConnectionInterface $from, array $da
 
 $server->addMessageHandler('text', function (ConnectionInterface $from, array $data) {
     $value = $data['value'] ?? null;
-    $live = $data['live'] ?? false;
 
     if (!empty($value)) {
         return shell_exec(sprintf('xdotool type %s', escapeshellarg($value)));
