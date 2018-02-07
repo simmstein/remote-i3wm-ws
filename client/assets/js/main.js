@@ -45,8 +45,10 @@ $(function() {
     });
 
     $('#shortcut-clear').click(function() {
-        $('#shortcut-keys').val(null).trigger('change');
         $('#shortcut-key').val('');
+        $('#shortcuts_special_keys input:checked').each(function() {
+            $(this).prop('checked', false).trigger('change');
+        });
     });
 
     var shortcutsSpecialKeysOnChange = function() {
