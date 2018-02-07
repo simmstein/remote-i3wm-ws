@@ -9,10 +9,19 @@ $(function() {
     var scrollLastTimestamp = null;
     var scrollLastValue = null;
 
+    var hash = window.location.hash;
+
+    if (hash) {
+        $(hash).show();
+        $('a[href="' + hash + '"]').addClass('active');
+    } else {
+        $('#panel-keyboard').show();
+        $('#nav a').first().addClass('active');
+    }
+
     $('.select2').select2();
 
     $('#nav a').click(function(e) {
-        e.preventDefault();
         $('.pane').hide();
 
         var target = $(this).attr('href');

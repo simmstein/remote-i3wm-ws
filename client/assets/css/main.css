@@ -23,10 +23,6 @@
     display: none;
 }
 
-#pane-keyboard {
-    display: block;
-}
-
 #pointer {
     height: 80vh;
     width: 95%;
