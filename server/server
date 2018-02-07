@@ -22,7 +22,7 @@ $server->addMessageHandler('pointer', function (ConnectionInterface $from, array
         $mouseX = (int) ($matches[1] + $x * 2.5);
         $mouseY = (int) ($matches[2] + $y * 2.5);
 
-        return $shell->exec('xdotool mousemove %s %s', $mouseX, $mouseY);
+        $shell->exec('xdotool mousemove %s %s', $mouseX, $mouseY);
     } elseif ($click !== null) {
         if ($click === 'left') {
             $shell->exec('xdotool click 1');
