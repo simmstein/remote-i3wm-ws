@@ -12,7 +12,7 @@
 }
 
 .select2 {
-    width: 100%;
+    min-width: 100%;
 }
 
 .line {
@@ -23,15 +23,26 @@
     display: none;
 }
 
+.no-margin {
+    margin: 0;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-radius {
+    border-radius: 0 !important;
+}
+
 #pointer {
-    height: 80vh;
-    width: 95%;
+    height: 75vh;
     margin: auto;
     background: #ccc;
 }
 
 #scrollbar {
-    height: 80vh;
+    height: 75vh;
     width: 50px;
     background: #333;
     position: absolute;

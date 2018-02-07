@@ -10,43 +10,35 @@
 </head>
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
+<div class="container-fluid no-padding">
+    <div class="row no-margin">
+        <div class="col-12 no-padding">
             <ul class="nav nav-pills nav-fill" id="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#pane-keyboard">KEYBOARD</a>
+                    <a class="nav-link no-radius" href="#pane-keyboard">KEYBOARD</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#pane-i3">I3</a>
+                    <a class="nav-link no-radius" href="#pane-i3">I3</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#pane-pointer">MOUSE</a>
+                    <a class="nav-link no-radius" href="#pane-pointer">MOUSE</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#pane-media">MEDIA</a>
+                    <a class="nav-link no-radius" href="#pane-media">MEDIA</a>
                 </li>
             </ul>
         </div>
     </div>
+</div>
 
+<div class="container-fluid">
     <div id="pane-keyboard" class="pane">
         <div class="row">
             <div class="col-12">
-                <p class="legend">Keys</p>
+                <p class="legend">Live text</p>
             </div>
-            <div class="col-12">
-                <button type="button" data-msg='{"type":"key","value":"left"}' class="btn btn-secondary">←</button>
-                <button type="button" data-msg='{"type":"key","value":"up"}' class="btn btn-secondary">↑</button>
-                <button type="button" data-msg='{"type":"key","value":"down"}' class="btn btn-secondary">↓</button>
-                <button type="button" data-msg='{"type":"key","value":"right"}' class="btn btn-secondary">→</button>
-            </div>
-            <div class="line col-12"></div>
-            <div class="col-12">
-                <button type="button" data-msg='{"type":"key","value":"escape"}' class="btn btn-secondary">Escape</button>
-                <button type="button" data-msg='{"type":"key","value":"tab"}' class="btn btn-secondary">TAB</button>
-                <button type="button" data-msg='{"type":"key","value":"backspace"}' class="btn btn-secondary">Backspace</button>
-                <button type="button" data-msg='{"type":"key","value":"enter"}' class="btn btn-secondary">Enter</button>
+            <div class="form-group col-12">
+                <input type="text" class="form-control" id="live-text" name="text">
             </div>
         </div>
         <div class="row">
@@ -63,10 +55,20 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <p class="legend">Live text</p>
+                <p class="legend">Keys</p>
             </div>
-            <div class="form-group col-12">
-                <input type="text" class="form-control" id="live-text" name="text">
+            <div class="col-12">
+                <button type="button" data-msg='{"type":"key","value":"left"}' class="btn btn-secondary">←</button>
+                <button type="button" data-msg='{"type":"key","value":"up"}' class="btn btn-secondary">↑</button>
+                <button type="button" data-msg='{"type":"key","value":"down"}' class="btn btn-secondary">↓</button>
+                <button type="button" data-msg='{"type":"key","value":"right"}' class="btn btn-secondary">→</button>
+            </div>
+            <div class="line col-12"></div>
+            <div class="col-12">
+                <button type="button" data-msg='{"type":"key","value":"escape"}' class="btn btn-secondary">Escape</button>
+                <button type="button" data-msg='{"type":"key","value":"tab"}' class="btn btn-secondary">TAB</button>
+                <button type="button" data-msg='{"type":"key","value":"backspace"}' class="btn btn-secondary">Backspace</button>
+                <button type="button" data-msg='{"type":"key","value":"enter"}' class="btn btn-secondary">Enter</button>
             </div>
         </div>
         <div class="row">
@@ -137,6 +139,7 @@
                 <button type="button" data-msg='{"type":"messages","value":[{"type":"text","value":"v;mll"},{"type":"key","value":"enter"}]}' class="btn btn-secondary">v;mll</button>
                 <button type="button" data-msg='{"type":"messages","value":[{"type":"text","value":"rt -l"},{"type":"key","value":"enter"}]}' class="btn btn-secondary">rt -l</button>
             </div>
+            <div class="line col-12"></div>
             <div class="col-12">
                 <button type="button" data-msg='{"type":"messages","value":[{"type":"text","value":"mug"},{"type":"key","value":"enter"}]}' class="btn btn-secondary">mug</button>
                 <button type="button" data-msg='{"type":"messages","value":[{"type":"text","value":"mup"},{"type":"key","value":"enter"}]}' class="btn btn-secondary">mup</button>
@@ -148,13 +151,8 @@
 
     <div class="row pane" id="pane-pointer">
         <div id="scrollbar"></div>
-        <div id="pointer" class="col-12"></div>
-        <div id="pointer-log"></div>
-        <div class="text-center">
-            <button type="button" data-msg='{"type":"pointer","click":"left"}' class="btn btn-secondary col-3">Left</button>
-            <button type="button" data-msg='{"type":"pointer","click":"middle"}' class="btn btn-secondary col-3">Middle</button>
-            <button type="button" data-msg='{"type":"pointer","click":"right"}' class="btn btn-secondary col-3">Right</button>
-        </div>
+        <div id="pointer"></div>
+        <button type="button" data-msg='{"type":"pointer","click":"left"}' class="btn btn-primary no-radius col-5">&nbsp;</button><button type="button no-margin" data-msg='{"type":"pointer","click":"middle"}' class="btn btn-secondary no-radius col-2">&nbsp;</button><button type="button no-margin" data-msg='{"type":"pointer","click":"right"}' class="btn btn-primary no-radius col-5">&nbsp;</button>
     </div>
 
     <div class="row pane" id="pane-media">
@@ -176,6 +174,7 @@
             <button type="button" data-msg='{"type":"volume","value":"75"}' class="btn btn-secondary">75%</button>
             <button type="button" data-msg='{"type":"volume","value":"100"}' class="btn btn-secondary">100%</button>
         </div>
+        <div class="line col-12"></div>
         <div class="col-12">
             <button type="button" data-msg='{"type":"volume","value":"down"}' class="btn btn-secondary">-</button>
             <button type="button" data-msg='{"type":"volume","value":"up"}' class="btn btn-secondary">+</button>
