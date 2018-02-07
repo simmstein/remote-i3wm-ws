@@ -1,3 +1,16 @@
+a {
+    color: #1e3650;
+}
+
+.btn-primary {
+    background: #1e3650;
+    border-color: #0e2640;
+}
+
+.nav-pills .nav-link.active {
+    background: #1e3650;
+}
+
 .legend {
     color: #777;
     margin: 3px 0;
@@ -36,18 +49,29 @@
 }
 
 #pointer {
-    height: 75vh;
+    height: calc(100vh - 50px);
     margin: auto;
     background: #ccc;
 }
 
 #scrollbar {
-    height: 75vh;
+    height: calc(100vh - 50px);
     width: 50px;
     background: #333;
     position: absolute;
     z-index: 100;
     right: 0;
+}
+
+#pointer-buttons {
+    position: absolute;
+    margin-top: -42px;
+    width: 100%;
+    z-index: 110;
+}
+
+#pointer-buttons .btn {
+    height: 50px;
 }
 
 #disconneced {
@@ -62,4 +86,8 @@
 #disconneced a {
     color: #fff;
     font-weight: bold;
+}
+
+#nav {
+    border-bottom: 2px solid #1e3650;
 }
