@@ -6,7 +6,7 @@ This project is a POC for managing a GNU/Linux desktop (with i3-wm). It implemen
 * `amixer`
 * `i3-msg`
 * `xdotool`
-* `dbus-send`
+* `playerctl`
 
 It allows you to:
 

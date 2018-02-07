@@ -71,15 +71,15 @@ $server->addMessageHandler('media', function (ConnectionInterface $from, array $
     $value = $data['value'] ?? null;
 
     if ($value === 'playpause') {
-        $cmd = 'PlayPause';
+        $cmd = 'play-pause';
     } elseif ($value === 'next') {
-        $cmd = 'Next';
+        $cmd = 'next';
     } elseif ($value === 'prev') {
-        $cmd = 'Previous';
+        $cmd = 'previous';
     }
 
     if (!empty($cmd)) {
-        return shell_exec('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.'.$cmd);
+        return shell_exec('playerctl -p spotify '.$cmd);
     }
 });
 
