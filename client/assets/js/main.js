@@ -15,7 +15,7 @@ $(function() {
         $(hash).show();
         $('a[href="' + hash + '"]').addClass('active');
     } else {
-        $('#panel-keyboard').show();
+        $('#pane-keyboard').show();
         $('#nav a').first().addClass('active');
     }
 
