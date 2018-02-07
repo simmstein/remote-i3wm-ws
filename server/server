@@ -25,11 +25,11 @@ $server->addMessageHandler('pointer', function (ConnectionInterface $from, array
         return $shell->exec('xdotool mousemove %s %s', $mouseX, $mouseY);
     } elseif ($click !== null) {
         if ($click === 'left') {
-            return $shell->exec('xdotool click 1');
+            $shell->exec('xdotool click 1');
         } elseif ($click === 'middle') {
-            return $shell->exec('xdotool click 2');
+            $shell->exec('xdotool click 2');
         } elseif ($click === 'right') {
-            return $shell->exec('xdotool click 3');
+            $shell->exec('xdotool click 3');
         }
     }
 });
@@ -38,9 +38,9 @@ $server->addMessageHandler('scroll', function (ConnectionInterface $from, array 
     $value = $data['value'] ?? null;
 
     if ($value === 'down') {
-        return $shell->exec('xdotool click 5 && xdotool click 5');
+        $shell->exec('xdotool click 5 && xdotool click 5');
     } elseif ($value === 'up') {
-        return $shell->exec('xdotool click 4 && xdotool click 4');
+        $shell->exec('xdotool click 4 && xdotool click 4');
     }
 });
 
@@ -48,7 +48,7 @@ $server->addMessageHandler('workspace', function (ConnectionInterface $from, arr
     $value = $data['value'] ?? null;
 
     if (!empty($value)) {
-        return $shell->exec("i3-msg 'workspace \"%s\"'", $value);
+        $shell->exec("i3-msg 'workspace \"%s\"'", $value);
     }
 });
 
@@ -60,11 +60,11 @@ $server->addMessageHandler('volume', function (ConnectionInterface $from, array 
     }
 
     if ($value === 'up') {
-        return $shell->exec('amixer set Master 2%+');
+        $shell->exec('amixer set Master 2%+');
     } elseif ($value === 'down') {
-        return $shell->exec('amixer set Master 2%-');
+        $shell->exec('amixer set Master 2%-');
     } else {
-        return $shell->exec('amixer set Master %d%%', (int) $value);
+        $shell->exec('amixer set Master %d%%', (int) $value);
     }
 });
 
@@ -80,7 +80,7 @@ $server->addMessageHandler('media', function (ConnectionInterface $from, array $
     }
 
     if (!empty($cmd)) {
-        return $shell->exec('playerctl -p spotify %s', $cmd);
+        $shell->exec('playerctl -p spotify %s', $cmd);
     }
 });
 
@@ -102,7 +102,7 @@ $server->addMessageHandler('keys', function (ConnectionInterface $from, array $d
 
         $value = implode('+', $keys);
 
-        return $shell->exec('xdotool key %s', escapeshellarg($value));
+        $shell->exec('xdotool key %s', escapeshellarg($value));
     }
 });
 
@@ -121,7 +121,7 @@ $server->addMessageHandler('key', function (ConnectionInterface $from, array $da
     ];
 
     if (!empty($value) && isset($map[$value])) {
-        return $shell->exec('xdotool key %s', $map[$value]);
+        $shell->exec('xdotool key %s', $map[$value]);
     }
 });
 
@@ -129,7 +129,7 @@ $server->addMessageHandler('text', function (ConnectionInterface $from, array $d
     $value = $data['value'] ?? null;
 
     if (!empty($value)) {
-        return $shell->exec('xdotool type %s', escapeshellarg($value));
+        $shell->exec('xdotool type %s', escapeshellarg($value));
     }
 });
 
