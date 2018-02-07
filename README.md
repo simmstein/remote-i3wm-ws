@@ -17,10 +17,10 @@ It allows you to:
 
 …by using a web interface with your phone.
 
-![](https://upload.deblan.org/u/2018-02/5a79780f.png)
-![](https://upload.deblan.org/u/2018-02/5a797815.png)
-![](https://upload.deblan.org/u/2018-02/5a798866.png)
-![](https://upload.deblan.org/u/2018-02/5a79781e.png)
+![](https://upload.deblan.org/u/2018-02/5a7b2214.png)
+![](https://upload.deblan.org/u/2018-02/5a7b2217.png)
+![](https://upload.deblan.org/u/2018-02/5a7b221a.png)
+![](https://upload.deblan.org/u/2018-02/5a7b221d.png)
 
 Installation
 ------------
