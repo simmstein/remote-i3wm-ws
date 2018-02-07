@@ -9,49 +9,50 @@ use Ratchet\WebSocket\WsServer;
 use Ratchet\ConnectionInterface;
 
 $server = new Server();
+$shell = new Shell();
 
-$server->addMessageHandler('pointer', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('pointer', function (ConnectionInterface $from, array $data) use ($shell) {
     $x = $data['x'] ?? null;
     $y = $data['y'] ?? null;
     $click = $data['click'] ?? null;
 
     if ($x !== null && $y !== null) {
-        $mouseLocations = shell_exec('xdotool getmouselocation');
+        $mouseLocations = $shell->exec('xdotool getmouselocation');
         preg_match('/x:(\d+) y:(\d+) /', $mouseLocations, $matches);
         $mouseX = (int) ($matches[1] + $x * 2.5);
         $mouseY = (int) ($matches[2] + $y * 2.5);
 
-        return shell_exec(sprintf('xdotool mousemove %s %s', $mouseX, $mouseY));
+        return $shell->exec('xdotool mousemove %s %s', $mouseX, $mouseY);
     } elseif ($click !== null) {
         if ($click === 'left') {
-            return shell_exec('xdotool click 1');
+            return $shell->exec('xdotool click 1');
         } elseif ($click === 'middle') {
-            return shell_exec('xdotool click 2');
+            return $shell->exec('xdotool click 2');
         } elseif ($click === 'right') {
-            return shell_exec('xdotool click 3');
+            return $shell->exec('xdotool click 3');
         }
     }
 });
 
-$server->addMessageHandler('scroll', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('scroll', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
 
     if ($value === 'down') {
-        return shell_exec('xdotool click 5 && xdotool click 5');
+        return $shell->exec('xdotool click 5 && xdotool click 5');
     } elseif ($value === 'up') {
-        return shell_exec('xdotool click 4 && xdotool click 4');
+        return $shell->exec('xdotool click 4 && xdotool click 4');
     }
 });
 
-$server->addMessageHandler('workspace', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('workspace', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
 
     if (!empty($value)) {
-        return shell_exec(sprintf("i3-msg 'workspace \"%s\"'", $value));
+        return $shell->exec("i3-msg 'workspace \"%s\"'", $value);
     }
 });
 
-$server->addMessageHandler('volume', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('volume', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
 
     if ($value === null) {
@@ -59,15 +60,15 @@ $server->addMessageHandler('volume', function (ConnectionInterface $from, array 
     }
 
     if ($value === 'up') {
-        return shell_exec('amixer set Master 2%+');
+        return $shell->exec('amixer set Master 2%+');
     } elseif ($value === 'down') {
-        return shell_exec('amixer set Master 2%-');
+        return $shell->exec('amixer set Master 2%-');
     } else {
-        return shell_exec('amixer set Master '.((int) $value).'%');
+        return $shell->exec('amixer set Master %d%%', (int) $value);
     }
 });
 
-$server->addMessageHandler('media', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('media', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
 
     if ($value === 'playpause') {
@@ -79,11 +80,11 @@ $server->addMessageHandler('media', function (ConnectionInterface $from, array $
     }
 
     if (!empty($cmd)) {
-        return shell_exec('playerctl -p spotify '.$cmd);
+        return $shell->exec('playerctl -p spotify %s', $cmd);
     }
 });
 
-$server->addMessageHandler('keys', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('keys', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
 
     if (!empty($value)) {
@@ -101,11 +102,11 @@ $server->addMessageHandler('keys', function (ConnectionInterface $from, array $d
 
         $value = implode('+', $keys);
 
-        return shell_exec(sprintf('xdotool key %s', escapeshellarg($value)));
+        return $shell->exec('xdotool key %s', escapeshellarg($value));
     }
 });
 
-$server->addMessageHandler('key', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('key', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
     $map = [
         'up' => 'Up',
@@ -120,15 +121,15 @@ $server->addMessageHandler('key', function (ConnectionInterface $from, array $da
     ];
 
     if (!empty($value) && isset($map[$value])) {
-        return shell_exec(sprintf('xdotool key %s', $map[$value]));
+        return $shell->exec('xdotool key %s', $map[$value]);
     }
 });
 
-$server->addMessageHandler('text', function (ConnectionInterface $from, array $data) {
+$server->addMessageHandler('text', function (ConnectionInterface $from, array $data) use ($shell) {
     $value = $data['value'] ?? null;
 
     if (!empty($value)) {
-        return shell_exec(sprintf('xdotool type %s', escapeshellarg($value)));
+        return $shell->exec('xdotool type %s', escapeshellarg($value));
     }
 });
 
