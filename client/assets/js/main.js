@@ -19,8 +19,6 @@ $(function() {
         $('#nav a').first().addClass('active');
     }
 
-    $('.select2').select2();
-
     $('#nav a').click(function(e) {
         $('.pane').hide();
 
@@ -51,8 +49,26 @@ $(function() {
         $('#shortcut-key').val('');
     });
 
+    var shortcutsSpecialKeysOnChange = function() {
+        $('#shortcuts_special_keys input:checked').each(function() {
+            $(this).parent().addClass('btn-primary').removeClass('btn-secondary');
+        })
+
+        $('#shortcuts_special_keys input:not(:checked)').each(function() {
+            $(this).parent().addClass('btn-secondary').removeClass('btn-primary');
+        })
+    }
+
+    $('#shortcuts_special_keys input').change(shortcutsSpecialKeysOnChange);
+    shortcutsSpecialKeysOnChange();
+
     $('#shortcut-send').click(function() {
-        var keys = $('#shortcut-keys').val();
+        var keys = [];
+
+        $('#shortcuts_special_keys input:checked').each(function() {
+            keys.push($(this).val());
+        });
+
         var key = $('#shortcut-key').val();
 
         if (keys.length) {

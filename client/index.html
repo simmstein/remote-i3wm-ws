@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="vendor/select2/select2/dist/css/select2.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
     <title>Remote i3-wm</title>
 </head>
@@ -75,15 +74,25 @@
             <div class="col-12">
                 <p class="legend">Shortcuts</p>
             </div>
-            <div class="col-8">
-                <select class="select2" id="shortcut-keys" name="shortcuts_special_keys[]" multiple="multiple">
-                    <option value="ctrl">ctrl</option>
-                    <option value="shift">shift</option>
-                    <option value="alt">alt</option>
-                    <option value="win">win</option>
-                </select>
+            <div class="col-9" id="shortcuts_special_keys">
+                <label class="btn btn-secondary" for="shortcuts_special_key_ctrl">
+                    <input type="checkbox" value="ctrl" id="shortcuts_special_key_ctrl">
+                    ctrl
+                </label>
+                <label class="btn btn-secondary" for="shortcuts_special_key_shift">
+                    <input type="checkbox" value="shift" id="shortcuts_special_key_shift">
+                    shift
+                </label>
+                <label class="btn btn-secondary" for="shortcuts_special_key_alt">
+                    <input type="checkbox" value="alt" id="shortcuts_special_key_alt">
+                    alt
+                </label>
+                <label class="btn btn-secondary" for="shortcuts_special_key_win">
+                    <input type="checkbox" value="win" id="shortcuts_special_key_win">
+                    win
+                </label>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-3">
                 <input type="text" id="shortcut-key" class="form-control" name="shortcuts_char">
             </div>
             <div class="col-12">
@@ -189,7 +198,6 @@
 </div>
 
 <script src="vendor/components/jquery/jquery.min.js"></script>
-<script src="vendor/select2/select2/dist/js/select2.full.min.js"></script>
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="assets/js/main.js"></script>
