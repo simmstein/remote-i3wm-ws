@@ -60,9 +60,9 @@ $server->addMessageHandler('volume', function (ConnectionInterface $from, array 
     }
 
     if ($value === 'up') {
-        $shell->exec('amixer set Master 2%+');
+        $shell->exec('amixer set Master 2%%+');
     } elseif ($value === 'down') {
-        $shell->exec('amixer set Master 2%-');
+        $shell->exec('amixer set Master 2%%-');
     } else {
         $shell->exec('amixer set Master %d%%', (int) $value);
     }
