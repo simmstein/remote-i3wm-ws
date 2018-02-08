@@ -21,11 +21,17 @@ class Server implements MessageComponentInterface
     protected $messageHandlers = [];
 
     /**
+     * @var Output
+     */
+    protected $output;
+
+    /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(Output $output)
     {
         $this->clients = new \SplObjectStorage();
+        $this->output = $output;
     }
 
     /**
@@ -53,6 +59,7 @@ class Server implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clients->attach($conn);
+        $this->output->writeln('New client');
     }
 
     /**
@@ -63,14 +70,21 @@ class Server implements MessageComponentInterface
         $data = json_decode($msg, true);
 
         if ($data === null) {
+            $this->output->writeln('Invalid message received (bad json)');
+
             return;
         }
 
         $type = $data['type'] ?? null;
 
         if ($type === null) {
+            $this->output->writeln('Invalid message received (type not defined)');
+
             return;
         }
+
+        $this->output->write('Message received: ');
+        $this->output->writeln($msg);
 
         $handlers = $this->messageHandlers[$type] ?? [];
 
