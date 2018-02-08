@@ -130,7 +130,7 @@ var scrollerTouchMoveHandler = function(e) {
     var value = ((touch.pageY - mouseInitPosY > 0) ? 'down' : 'up');
     var now = new Date().getTime();
 
-    if (value === scrollLastValue && scrollLastTimestamp !== null && now - scrollLastTimestamp < 200) {
+    if (touch.pageY === mouseInitPosY || value === scrollLastValue && scrollLastTimestamp !== null && now - scrollLastTimestamp < 200) {
         return;
     }
 
