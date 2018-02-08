@@ -41,6 +41,6 @@ $ php server/server&
 The server can be run with with verbose:
 
 * `-v` or `--verbose` to show server messages
-* `--vv` to show message handlers messages
+* `--vv` to show handlers messages
 
 Open `http://your.local.ip:15000` and enjoy!
