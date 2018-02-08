@@ -101,3 +101,13 @@ a {
 #shortcuts_special_keys input {
     display: none;
 }
+
+#response {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    background: #748c26;
+    padding: 5px;
+    display: none;
+}

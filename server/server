@@ -75,13 +75,17 @@ $server->addMessageHandler('volume', function (ConnectionInterface $from, array 
 
     if ($value === 'up') {
         $shell->exec('amixer set Master 2%%+');
+        $from->send(json_encode(['type' => 'response', 'value' => 'Volume up']));
+        $messageOutput->writeln('Volume up');
     } elseif ($value === 'down') {
         $shell->exec('amixer set Master 2%%-');
+        $from->send(json_encode(['type' => 'response', 'value' => 'Volume down']));
+        $messageOutput->writeln('Volume down');
     } else {
         $shell->exec('amixer set Master %d%%', (int) $value);
+        $from->send(json_encode(['type' => 'response', 'value' => sprintf('Volume set to %d%%', $value)]));
+        $messageOutput->writeln(sprintf('Volume set to %d%%', $value));
     }
-
-    $messageOutput->writeln('Volume modified');
 });
 
 $server->addMessageHandler('media', function (ConnectionInterface $from, array $data) use ($shell, $messageOutput) {
@@ -97,7 +101,18 @@ $server->addMessageHandler('media', function (ConnectionInterface $from, array $
 
     if (!empty($cmd)) {
         $shell->exec('playerctl -p spotify %s', $cmd);
-        $messageOutput->writeln('Spotify managed');
+
+        usleep(500000);
+        $status = trim($shell->exec('playerctl -p spotify status'));
+
+        if ($status === 'Playing') {
+            $song = $shell->exec('playerctl -p spotify metadata xesam:title');
+            $from->send(json_encode(['type' => 'response', 'value' => 'Playing: '.$song]));
+            $messageOutput->writeln('Spotify playing');
+        } else {
+            $from->send(json_encode(['type' => 'response', 'value' => 'Paused']));
+            $messageOutput->writeln('Spotify paused');
+        }
     }
 });
 

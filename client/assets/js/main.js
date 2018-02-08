@@ -1,5 +1,5 @@
 var ws;
-var $pointer, $scroller;
+var $pointer, $scroller, $response;
 var scrollLastTimestamp, scrollLastValue;
 var mousePosX, mousePosY, mouseInitPosX, mouseInitPosY;
 
@@ -16,7 +16,18 @@ var createWebSocketConnection = function() {
         window.setTimeout(createWebSocketConnection, 5000);
     }
 
-    ws.onmessage = function(event) {}
+    ws.onmessage = function(event) {
+        var data = JSON.parse(event.data);
+
+        if (data.type === 'response') {
+            $response.text(data.value);
+            $response.fadeIn();
+
+            window.setTimeout(function() {
+                $response.fadeOut();
+            }, 2500);
+        }
+    }
 }
 
 var navigationClickHandler = function(e) {
@@ -214,6 +225,7 @@ var bootstrap = function() {
 $(function() {
     $pointer = $('#pointer');
     $scroller = $('#scrollbar');
+    $response = $('#response');
 
     bootstrap();
 });
