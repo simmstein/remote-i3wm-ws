@@ -38,4 +38,9 @@ $ php -S 0.0.0.0:15000 -t client/&
 $ php server/server&
 ```
 
+The server can be run with with verbose:
+
+* `-v` or `--verbose` to show server messages
+* `--vv` to show message handlers messages
+
 Open `http://your.local.ip:15000` and enjoy!
