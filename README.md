@@ -14,6 +14,7 @@ It allows you to:
 * manage volume and spotify
 * send text and shortcuts
 * move the pointer, scroll and click
+* make a screenshot and show the live screen
 
 …by using a web interface with your phone.
 
