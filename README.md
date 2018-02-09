@@ -7,6 +7,7 @@ This project is a POC for managing a GNU/Linux desktop (with i3-wm). It implemen
 * `i3-msg`
 * `xdotool`
 * `playerctl`
+* `import`
 
 It allows you to:
 
