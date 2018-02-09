@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link no-radius" href="#pane-media">MEDIA</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link no-radius" href="#pane-desktop">DESKTOP</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -189,6 +192,18 @@
         <div class="col-12">
             <button type="button" data-msg='{"type":"volume","value":"down"}' class="btn btn-secondary">-</button>
             <button type="button" data-msg='{"type":"volume","value":"up"}' class="btn btn-secondary">+</button>
+        </div>
+    </div>
+    <div class="row pane" id="pane-desktop">
+        <div class="col-12">
+            <p class="legend">Desktop</p>
+        </div>
+        <div class="col-12">
+            <button type="button" data-msg='{"type":"screenshot"}' class="btn btn-secondary">Screenshot</button>
+            <button type="button" id="live" class="btn btn-secondary">Live</button>
+            <div id="screenshot"><img src="data:image/png; base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gIJDjc3srQk8gAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAADElEQVQI12P48+cPAAXsAvVTWDc6AAAAAElFTkSuQmCC"></div>
+        </div>
+        <div class="col-12">
         </div>
     </div>
 </div>

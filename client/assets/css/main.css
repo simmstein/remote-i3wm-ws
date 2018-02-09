@@ -11,6 +11,10 @@ a {
     background: #1e3650;
 }
 
+.nav-link {
+    font-size: 10px;
+}
+
 .legend {
     color: #777;
     margin: 3px 0;
@@ -110,4 +114,9 @@ a {
     background: #748c26;
     padding: 5px;
     display: none;
+}
+
+#screenshot img {
+    max-width: 100%;
+    margin-top: 10px;
 }

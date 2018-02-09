@@ -168,6 +168,22 @@ $server->addMessageHandler('text', function (ConnectionInterface $from, array $d
     }
 });
 
+$server->addMessageHandler('screenshot', function (ConnectionInterface $from, array $data) use ($shell, $messageOutput) {
+    $tmpFilename = sprintf('%s.jpg', tempnam('/tmp', 'remote_i3wm_ws'));
+    $shell->exec('import -window root -quality 10 -display :0 %s', $tmpFilename);
+
+    if (file_exists($tmpFilename)) {
+        $base64 = base64_encode(file_get_contents($tmpFilename));
+
+        $from->send(json_encode([
+            'type' => 'screenshot',
+            'value' => $base64,
+        ]));
+
+        unlink($tmpFilename);
+    }
+});
+
 $server->addMessageHandler('messages', function (ConnectionInterface $from, array $data) use ($server) {
     $value = $data['value'] ?? [];
 

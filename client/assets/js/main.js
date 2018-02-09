@@ -1,7 +1,8 @@
 var ws;
-var $pointer, $scroller, $response;
+var $pointer, $scroller, $response, $screenshotImg;
 var scrollLastTimestamp, scrollLastValue;
 var mousePosX, mousePosY, mouseInitPosX, mouseInitPosY;
+var isLive = false;
 
 var createWebSocketConnection = function() {
     ws = new WebSocket('ws://' + window.location.hostname + ':14598');
@@ -26,6 +27,8 @@ var createWebSocketConnection = function() {
             window.setTimeout(function() {
                 $response.fadeOut();
             }, 2500);
+        } else if (data.type === 'screenshot') {
+            $screenshotImg.attr('src', 'data:image/png;base64, ' + data.value);
         }
     }
 }
@@ -180,6 +183,28 @@ var pointerTouchMoveHandler = function(e) {
     ws.send(msg);
 }
 
+var liveClickHandler = function(e) {
+    if (isLive) {
+        isLive = false;
+        $(this).text('Live');
+
+        return;
+    }
+
+    isLive = true;
+    $(this).text('Stop live');
+
+    var doScreenshot = function() {
+        if (isLive) {
+            ws.send('{"type":"screenshot"}');
+
+            window.setTimeout(doScreenshot, 300);
+        }
+    }
+
+    doScreenshot();
+}
+
 var documentHashHandler = function() {
     var hash = window.location.hash;
 
@@ -213,6 +238,8 @@ var addListeners = function() {
         .on('click', pointerClickHandler)
         .on('touchstart', pointerTouchStartHandler)
         .on('touchmove', pointerTouchMoveHandler);
+
+    $('#live').click(liveClickHandler);
 }
 
 var bootstrap = function() {
@@ -226,6 +253,7 @@ $(function() {
     $pointer = $('#pointer');
     $scroller = $('#scrollbar');
     $response = $('#response');
+    $screenshotImg = $('#screenshot img');
 
     bootstrap();
 });
