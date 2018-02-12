@@ -40,7 +40,7 @@ $ php -S 0.0.0.0:15000 -t client/&
 $ php server/server&
 ```
 
-The server can be run with with verbose:
+The server can be run with verbosity:
 
 * `-v` or `--verbose` to show server messages
 * `--vv` to show handlers messages
