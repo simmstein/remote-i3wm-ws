@@ -37,7 +37,7 @@ $ cd remote-i3wm-ws/
 $ cd client && composer install && cd ..
 $ cd server && composer install && cd ..
 $ php -S 0.0.0.0:15000 -t client/&
-$ php server/server&
+$ php server/src/resource/server.php
 ```
 
 The server can be run with verbosity:
@@ -46,3 +46,12 @@ The server can be run with verbosity:
 * `--vv` to show handlers messages
 
 Open `http://your.local.ip:15000` and enjoy!
+
+If you want to start/stop/restart the websocket easily:
+
+```
+$ export REMOTE_I3WM_WS_OPTIONS="-v"
+$ server/server start
+$ server/server stop
+$ server/server restart
+```
