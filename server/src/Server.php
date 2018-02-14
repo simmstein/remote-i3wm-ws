@@ -59,7 +59,7 @@ class Server implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clients->attach($conn);
-        $this->output->writeln('New client');
+        $this->output->writeln('New connection');
     }
 
     /**
@@ -99,6 +99,7 @@ class Server implements MessageComponentInterface
     public function onClose(ConnectionInterface $conn)
     {
         $this->clients->detach($conn);
+        $this->output->writeln('Connection closed');
     }
 
     /**
