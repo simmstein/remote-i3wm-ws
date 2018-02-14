@@ -205,6 +205,33 @@ var liveClickHandler = function(e) {
     doScreenshot();
 }
 
+var screenshotImgClickHandler = function(e) {
+    var img = $screenshotImg.get(0);
+    var isFullscreen = parseInt($screenshotImg.attr('data-fullscreen'));
+
+    if (isFullscreen) {
+        $screenshotImg.attr('data-fullscreen', '0');
+
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        }
+    } else {
+        $screenshotImg.attr('data-fullscreen', '1');
+
+        if (img.requestFullscreen) {
+            img.requestFullscreen();
+        } else if (img.webkitRequestFullscreen) {
+            img.webkitRequestFullscreen();
+        } else if (img.mozRequestFullScreen) {
+            img.mozRequestFullScreen();
+        }
+    }
+}
+
 var documentHashHandler = function() {
     var hash = window.location.hash;
 
@@ -240,6 +267,8 @@ var addListeners = function() {
         .on('touchmove', pointerTouchMoveHandler);
 
     $('#live').click(liveClickHandler);
+
+    $screenshotImg.click(screenshotImgClickHandler)
 }
 
 var bootstrap = function() {
