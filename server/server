@@ -20,12 +20,16 @@ ri3wmws_stop() {
 }
 
 ri3wmws_start() {
-    php src/resource/server.php "$REMOTE_I3WM_WS_OPTIONS" &
-    PID=$!
+    if [ -f "$PID_PATH" ]; then
+        printf "Server already started\n"
+    else
+        php src/resource/server.php "$REMOTE_I3WM_WS_OPTIONS" &
+        PID=$!
 
-    printf $PID > "$PID_PATH"
-    chmod 600 "$PID_PATH"
-    printf "Server is running\n"
+        printf $PID > "$PID_PATH"
+        chmod 600 "$PID_PATH"
+        printf "Server is running\n"
+    fi
 }
 
 ri3wmws_restart() {
